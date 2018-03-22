@@ -4,11 +4,28 @@
 	<groupId>com.dccorp</groupId>
 	<artifactId>digitalsign</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<description>jnlp project to download / digitally sign / upload pdfs.</description>
+	<url>tbd</url>
 	<properties>
 		<itext.version>7.1.1</itext.version>
 		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.3</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.8</version>
+			</plugin>
+		</plugins>
+	</reporting>
 	<dependencies>
 		<dependency>
 			<groupId>com.itextpdf</groupId>
@@ -74,6 +91,44 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- plugin to normalize and pack output jar -->
+			<plugin>
+				<groupId>com.github.batkinson.plugins</groupId>
+				<artifactId>maven-pack200-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+					<execution>
+						<id>normalize-jars</id>
+						<phase>package</phase>
+						<goals>
+							<goal>pack</goal>
+						</goals>
+						<configuration>
+							<normalizeOnly>true</normalizeOnly>
+							<processMainArtifact>false</processMainArtifact>
+					<includeClassifiers>
+						<includeClassifier>jar-with-dependencies</includeClassifier>
+					</includeClassifiers>
+						</configuration>
+					</execution>
+					<execution>
+						<id>pack-jars</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>pack</goal>
+						</goals>
+						<configuration>
+							<normalizeOnly>false</normalizeOnly>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<processMainArtifact>false</processMainArtifact>
+					<includeClassifiers>
+						<includeClassifier>jar-with-dependencies</includeClassifier>
+					</includeClassifiers>
+				</configuration>
+			</plugin>
 			<!-- Maven Jar Signer plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -95,12 +150,34 @@
 				</executions>
 				<configuration>
 					<!-- jar signing configuration. -->
-					<keystore>/Users/deepakchaudhary/dc_consulting/EHS/app_workspace/digitalsign/src/main/resources/javakeystore_keepsecret.jks</keystore>
+					<keystore>/Users/deepakchaudhary/git/digisign/digitalsign/src/main/resources/javakeystore_keepsecret.jks</keystore>
 					<alias>erikcostlow</alias>
 					<storepass>changeit</storepass>
 					<keypass>changeit</keypass>
 				</configuration>
 			</plugin>
+			<!-- maven copy plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<configuration>
+							<target>
+								<copy
+									file="/Users/deepakchaudhary/git/digisign/digitalsign/target/digisigner-jar-with-dependencies.jar.pack.gz"
+									tofile="/Users/deepakchaudhary/dc_consulting/Server/apache-tomcat-7.0.82/webapps/jnlp/digisigner-jar-with-dependencies.jar.pack.gz" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 </project>
