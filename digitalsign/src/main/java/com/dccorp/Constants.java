@@ -26,6 +26,7 @@ public class Constants
 	static String ac_downloadAndSign = "downloadAndSign";
 	static String _winOS = "win";
 	static String _macOS = "mac";
+	static String _envOS = "os.name";
 	static String dots = ".....";
 	static String http_userAgentKey = "User-Agent";
 	static String http_userAgentVal = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";

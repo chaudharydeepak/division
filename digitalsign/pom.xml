@@ -150,10 +150,12 @@
 				</executions>
 				<configuration>
 					<!-- jar signing configuration. -->
-					<keystore>/Users/deepakchaudhary/git/digisign/digitalsign/src/main/resources/javakeystore_keepsecret.jks</keystore>
-					<alias>erikcostlow</alias>
+					<!-- <keystore>/Users/deepakchaudhary/git/digisign/digitalsign/src/main/resources/javakeystore_keepsecret.jks</keystore> -->
+					<keystore>/Users/deepakchaudhary/dc_consulting/aws_key/clientcert.jks</keystore>
+					<!-- <alias>erikcostlow</alias> -->
+					<alias>id comodo ca limited de webabilis, unipessoal, lda</alias>
 					<storepass>changeit</storepass>
-					<keypass>changeit</keypass>
+					<keypass>fcmb9250</keypass>
 				</configuration>
 			</plugin>
 			<!-- maven copy plugin -->

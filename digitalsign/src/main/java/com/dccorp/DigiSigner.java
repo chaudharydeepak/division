@@ -195,7 +195,7 @@ public class DigiSigner extends JPanel implements ActionListener
 			Image image = icon.getImage(); // transform it
 			Image newimg = image.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
 			icon = new ImageIcon(newimg); // transform it back
-			_osName = System.getProperty("os.name").toLowerCase();
+			_osName = System.getProperty(Constants._envOS).toLowerCase();
 			if (_osName.indexOf(Constants._winOS) >= 0)
 			{
 				/* win keystore */
@@ -596,6 +596,12 @@ public class DigiSigner extends JPanel implements ActionListener
 		return oPublicCertificate.getNotAfter().after((new Date()));
 	}
 
+	/**
+	 * Method to set processing message on UI.
+	 * @param msg
+	 * @param msgClass
+	 * @param msgColor
+	 */
 	public static void setMessage(String msg, String msgClass, Color msgColor)
 	{
 		msgLbl.setForeground(msgColor);
